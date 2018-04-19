@@ -1,0 +1,38 @@
+pipeline {
+
+  agent {
+        label 'Linux'
+      }
+
+	options{
+	   buildDiscarder(logRotator(numToKeepStr: '2',artifactNumToKeepStr: '1'))
+	}
+
+	 environment {
+   		 MAJOR_VERSION = 1
+  		}
+
+	stages {
+
+    stage('Unit Tests'){
+      steps{
+        sh 'ant -f test.xml -v'
+        junit 'reports/result.xml'
+      }
+    }
+
+		stage('build'){
+			steps{
+				sh '''#!/bin/bash
+					echo $PATH
+					ant -f build.xml -v
+				'''
+			}
+		}
+	}
+	post {
+		always {
+			archive 'dist/*.jar'
+			}
+	}
+}
