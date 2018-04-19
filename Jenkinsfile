@@ -7,14 +7,18 @@ pipeline {
 
   stages {
     stage('Say Hello') {
-      agent any
+      agent {
+        label 'Linux'
+      }
 
       steps {
         sayHello 'Awesome Student!'
       }
     }
     stage('Git Information') {
-      agent any
+      agent {
+        label 'Linux'
+      }
 
       steps {
         echo "My Branch Name: ${env.BRANCH_NAME}"
@@ -71,7 +75,7 @@ pipeline {
     }
     stage('Promote to Green') {
       agent {
-        label 'apache'
+        label 'Linux'
       }
       when {
         branch 'master'
@@ -82,7 +86,7 @@ pipeline {
     }
     stage('Promote Development Branch to Master') {
       agent {
-        label 'apache'
+        label 'Linux'
       }
       when {
         branch 'development'
