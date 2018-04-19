@@ -4,6 +4,10 @@ pipeline {
         label 'Linux'
       }
 
+	options{
+	buildDiscarder(logRotator(numToKeepStr: '2',artifactNumtoKeepStr: '1'))
+	}
+
 	 environment {
    		 MAJOR_VERSION = 1
   		}
