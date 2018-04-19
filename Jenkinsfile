@@ -32,7 +32,7 @@ pipeline {
 
     stage('deploy'){
       steps {
-        sh "cp dist/rectangle_1_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
+        sh "cp 'dist/rectangle_1_${env.BUILD_NUMBER}.jar' /var/www/html/rectangles/all/"
         }
       }
     }
