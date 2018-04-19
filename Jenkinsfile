@@ -2,7 +2,7 @@ pipeline {
 
   agent Linux
 
-	stages{
+	stages {
 		stage('build'){		
 		
 			steps{
