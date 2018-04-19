@@ -15,15 +15,7 @@ pipeline {
         sayHello 'Awesome Student!'
       }
     }
-    stage('Git Information') {
-      agent {
-        label 'Linux'
-      }
 
-      steps {
-        echo "My Branch Name: ${env.BRANCH_NAME}"
-      }
-    }
     stage('Unit Tests') {
       agent {
         label 'Linux'
