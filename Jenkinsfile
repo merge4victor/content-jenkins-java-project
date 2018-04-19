@@ -6,13 +6,14 @@ pipeline {
   }
 
   stages {
+
     stage('Say Hello') {
       agent {
         label 'Linux'
       }
-
       steps {
-        sayHello 'Awesome Student!'
+        //sayHello 'Awesome Student!'
+        echo "Say Hello"
       }
     }
 
@@ -25,6 +26,7 @@ pipeline {
         junit 'reports/result.xml'
       }
     }
+
     stage('build') {
       agent {
         label 'Linux'
@@ -38,6 +40,7 @@ pipeline {
         }
       }
     }
+
     stage('deploy') {
       agent {
         label 'Linux'
@@ -47,6 +50,7 @@ pipeline {
         sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
       }
     }
+
     stage("Running on CentOS") {
       agent {
         label 'Linux'
@@ -56,6 +60,7 @@ pipeline {
         sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
       }
     }
+
     stage("Test on Debian") {
       agent {
         docker 'openjdk:8u121-jre'
@@ -65,6 +70,7 @@ pipeline {
         sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
       }
     }
+
     stage('Promote to Green') {
       agent {
         label 'Linux'
@@ -76,6 +82,7 @@ pipeline {
         sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
       }
     }
+
     stage('Promote Development Branch to Master') {
       agent {
         label 'Linux'
@@ -110,7 +117,9 @@ pipeline {
         }
       }
     }
+
   }
+
   post {
     failure {
       emailext(
