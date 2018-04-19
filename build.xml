@@ -25,6 +25,10 @@
     <mkdir dir="${dist.dir}" />
   </target>
 
+ <presetdef name="javac">
+    <javac includeantruntime="false" />
+  </presetdef>
+
   <!-- Compiles the java code (including the usage of library for JUnit -->
   <target name="compile" depends="clean, makedir">
     <javac srcdir="${src.dir}" destdir="${build.dir}">
