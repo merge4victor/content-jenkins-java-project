@@ -9,7 +9,9 @@ pipeline {
 		
 			steps{
 		
-				sh 'ant -f build.xml -v'		
+				sh '''#!/bin/bash
+					ant -f build.xml -v
+				'''		
 
 			}
 		}
