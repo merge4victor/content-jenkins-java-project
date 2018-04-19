@@ -6,7 +6,7 @@ pipeline {
 
 	options{
 	   buildDiscarder(logRotator(numToKeepStr: '2',artifactNumToKeepStr: '2'))
-	}
+   }
 
 	 environment {
    		 MAJOR_VERSION = 1
@@ -36,12 +36,11 @@ pipeline {
         }
       }
     }
-	}
 
 	post {
 		always {
 			archive 'dist/*.jar'
-			}
-	}
+    }
+  }
 
 }
