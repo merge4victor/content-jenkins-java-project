@@ -79,7 +79,7 @@ pipeline {
         label 'Linux'
       }
       when {
-        branch 'development'
+        branch 'origin/development'
       }
       steps {
         echo "Stashing Any Local Changes"
