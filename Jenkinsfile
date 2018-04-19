@@ -78,9 +78,7 @@ pipeline {
       agent {
         label 'Linux'
       }
-      when {
-        branch 'origin/development'
-      }
+      
       steps {
         echo "Stashing Any Local Changes"
         sh 'git stash'
