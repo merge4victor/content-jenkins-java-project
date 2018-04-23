@@ -101,7 +101,7 @@ pipeline {
         echo 'Merging Development into Master Branch'
         bat 'git merge development'
         echo 'Pushing to Origin Master'
-        //bat 'git push origin master'
+        bat 'git push origin master'
         echo 'Tagging the Release'
         bat "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
         bat "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
