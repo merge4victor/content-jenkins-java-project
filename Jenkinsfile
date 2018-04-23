@@ -85,47 +85,30 @@ pipeline {
 
     stage('Promote Development Branch to Master') {
       agent {
-        label 'Linux'
+        label 'windows'
       }
-
+	when{
+	branch 'development'
+	}
       steps {
         echo "Stashing Any Local Changes"
-        sh 'git stash'
+        bat 'git stash'
         echo "Checking Out Development Branch"
-        sh 'git checkout development'
+        bat 'git checkout development'
         echo 'Checking Out Master Branch'
-        sh 'git pull origin'
-        sh 'git checkout master'
+        bat 'git pull origin'
+        bat 'git checkout master'
         echo 'Merging Development into Master Branch'
-        sh 'git merge development'
+        bat 'git merge development'
         echo 'Pushing to Origin Master'
-        //sh 'git push origin master'
+        //bat 'git push origin master'
         echo 'Tagging the Release'
-        //sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
-        //sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+        //cmd "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+        //cmd "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
       }
-      post {
-        success {
-          emailext(
-            subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Development Promoted to Master",
-            body: """<p>'${env.JOB_NAME} [${env.BUILD_NUMBER}]' Development Promoted to Master":</p>
-            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-            to: "fatih.mergen@gmail.com"
-          )
-        }
-      }
+
     }
 
   }
 
-  post {
-    failure {
-      emailext(
-        subject: "${env.JOB_NAME} [${env.BUILD_NUMBER}] Failed!",
-        body: """<p>'${env.JOB_NAME} [${env.BUILD_NUMBER}]' Failed!":</p>
-        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-        to: "fatihmergenn@gmail.com"
-      )
-    }
-  }
 }
