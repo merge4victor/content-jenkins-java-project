@@ -63,7 +63,7 @@ pipeline {
 
    stage("Test on Docker") {
       agent {
-        docker 'openjdk:8u161-jre'
+        docker 'openjdk:8u162-jre'
       }
       steps {
         sh "wget http://10.20.10.65/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
