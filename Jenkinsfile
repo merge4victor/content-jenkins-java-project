@@ -61,6 +61,15 @@ pipeline {
       }
     }
 
+   stage("Test on Docker") {
+      agent {
+        docker 'openjdk:8u161-jre'
+      }
+      steps {
+        sh "wget http://10.20.10.65/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
+        sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
+      }
+    }
 
     stage('Promote to Green') {
       agent {
@@ -78,7 +87,7 @@ pipeline {
       agent {
         label 'Linux'
       }
-      
+
       steps {
         echo "Stashing Any Local Changes"
         sh 'git stash'
@@ -90,10 +99,10 @@ pipeline {
         echo 'Merging Development into Master Branch'
         sh 'git merge development'
         echo 'Pushing to Origin Master'
-        sh 'git push origin master'
+        //sh 'git push origin master'
         echo 'Tagging the Release'
-        sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
-        sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+        //sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+        //sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
       }
       post {
         success {
