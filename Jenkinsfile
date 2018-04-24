@@ -128,6 +128,7 @@ pipeline {
       }
       steps {
         bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
+        sleep 10
         bat 'python c:\\temp\\selenium\\seleniumTestIE.py'
       }
     }
