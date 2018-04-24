@@ -106,17 +106,6 @@ pipeline {
         //bat "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
         //bat "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
       }
-      stage('test with selenium') {
-        agent {
-          label 'windows'
-        }
-        when {
-          branch 'development'
-        }
-        steps {
-          bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
-        }
-      }
       post {
         success {
           emailext(
@@ -128,6 +117,18 @@ pipeline {
         }
       }
 
+    }
+
+    stage('test with selenium') {
+      agent {
+        label 'windows'
+      }
+      when {
+        branch 'development'
+      }
+      steps {
+        bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
+      }
     }
 
   }
