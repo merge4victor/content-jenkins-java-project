@@ -114,7 +114,7 @@ pipeline {
           branch 'development'
         }
         steps {
-          bat 'python c:\temp\selenium\seleniumTestChrome.py'
+          bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
         }
       }
       post {
