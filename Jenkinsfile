@@ -87,9 +87,9 @@ pipeline {
       agent {
         label 'windows'
       }
-	when{
-	branch 'development'
-	}
+      	when{
+      	branch 'development'
+      	}
       steps {
         echo "Stashing Any Local Changes"
         bat 'git stash'
