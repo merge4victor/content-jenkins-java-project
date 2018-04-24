@@ -71,6 +71,18 @@ pipeline {
       }
     }
 
+    stage('test with selenium') {
+      agent {
+        label 'windows'
+      }
+      when {
+        branch 'development'
+      }
+      steps {
+        bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
+      }
+    }
+    
     stage('Promote to Green') {
       agent {
         label 'Linux'
@@ -117,20 +129,6 @@ pipeline {
         }
       }
 
-    }
-
-    stage('test with selenium') {
-      agent {
-        label 'windows'
-      }
-      when {
-        branch 'development'
-      }
-      steps {
-        bat 'python c:\\temp\\selenium\\seleniumTestChrome.py'
-        sleep 10
-        bat 'python c:\\temp\\selenium\\seleniumTestIE.py'
-      }
     }
 
   }
